@@ -203,8 +203,8 @@ session_start();
 
 </div>
 <!-- end of container -->
-@include('common.footer')
 
+@include('common.footer-scripts')
 
 </body>
 </html>

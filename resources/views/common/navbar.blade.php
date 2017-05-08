@@ -6,7 +6,7 @@
 <nav class="navbar navbar-default navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.php">TIMEA`S BOOKSTORE</a>
+            <a class="navbar-brand" href="{{ route('index') }}">TIMEA`S BOOKSTORE</a>
         </div>
         <div id="navbar">
             <ul class="nav navbar-nav navbar-left">
@@ -14,9 +14,9 @@
                                         data-toggle="dropdown" role="button" aria-haspopup="true"
                                         aria-expanded="false">BOOKS <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Browse the bookshelf</a></li>
-                        <li><a href="#">Store hours &#38; Directions</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="{{ route('bookshelf') }}">Browse the bookshelf</a></li>
+                        <li><a href="{{ route('hours') }}">Store hours &#38; Directions</a></li>
+                        <li><a href="{{ route('faq') }}">FAQ</a></li>
 
                     </ul></li>
                 <form class="navbar-form">
@@ -28,20 +28,10 @@
                 </form>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">SHOPPING CART</a></li>
-
-            <?php if(isset($_SESSION['username'])){
-                echo "<li><a href='myProfile.php'>MY PROFILE</a></li>";
-            }
-            else{
-                echo "<li><a href='myAccount.php'>SIGN IN</a></li>";
-            }
-            ?>
-
-            <?php if(isset($_SESSION['username'])){
-                echo "<li><a href = 'logout.php'>LOGOUT</a></li>";
-            }
-            ?>
+                <li><a href="{{ route('shoppingCart') }}">SHOPPING CART</a></li>
+                <li><a href='{{ route('myProfile') }}'>MY PROFILE</a></li>
+                <li><a href='{{ route('myAccount') }}'>SIGN IN</a></li>
+                <li><a href ="">LOGOUT</a></li>
 
             <!-- <li><a href="myProfile.php">MY PROFILE</a></li> -->
 
