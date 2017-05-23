@@ -14,10 +14,6 @@ class User_Order extends Model
         return $this->belongsTo('App\ShippingAddress', 'shipping_address_id');
     }
 
-    public function cartItems(){
-        return $this->hasMany('App\CartItem', 'order_id');
-    }
-
     public function payment(){
         return $this->belongsTo('App\Payment');
     }

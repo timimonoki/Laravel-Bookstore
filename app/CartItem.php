@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class CartItem extends Model
 {
-    public function orders(){
-        return $this->belongsTo('App\User_Order', 'order_id');
+    public function books(){
+        return $this->hasMany('App\Books');
+    }
+
+    public function shopping_cart(){
+        return $this->belongsTo('App\ShoppingCart');
     }
 }

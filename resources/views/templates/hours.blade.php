@@ -13,7 +13,7 @@
 
 		<div class="row" style="margin-top:10px">
 			<div class="col-xs-9 col-xs-offset-3">
-				<img class="img-responsive" src="/image/hours.png" />
+				<img class="img-responsive" src="image/hours.png" />
 			</div>
 		</div>
 	</div>
