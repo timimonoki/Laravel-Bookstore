@@ -32,6 +32,6 @@ class CreateBillingAddressTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('billing_address');
     }
 }

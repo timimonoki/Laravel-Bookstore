@@ -31,6 +31,6 @@ class CreateCartItemTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('cart_items');
     }
 }
