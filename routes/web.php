@@ -40,6 +40,10 @@ Route::get('/shopping-cart', function (){
 Route::get('/checkout', function (){
     return view('templates.checkout');
 })->name('checkout');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+

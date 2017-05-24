@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en"
 
-      @include('common.header')
+@include('common.header')
 
 <body>
 
@@ -17,7 +16,7 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li class = "active"><a href="#tab-1" data-toggle="tab"><span style="color: red;">Edit</span></a></li>
+                <li class="active"><a href="#tab-1" data-toggle="tab"><span style="color: red;">Edit</span></a></li>
                 <li><a href="#tab-2" data-toggle="tab"><span style="color: red;">Orders</span></a></li>
                 <li><a href="#tab-3" data-toggle="tab"><span style="color: red;">Billing</span></a></li>
                 <li><a href="#tab-4" data-toggle="tab"><span style="color: red;">Shipping</span></a></li>
@@ -30,23 +29,25 @@
                 <div class="tab-pane active" id="tab-1">
                     <div class="panel-group">
                         <div class="panel panel-default" style="border: none;">
-                            <div class="panel-body"	style="background-color: #ededed; margin-top: 20px;">
+                            <div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
 
                                 <!-- Send a form with details about profile to be updated -->
 
-                                <form action = "" method="post">
-                                    <input type="hidden" name="id" value="1" />
+                                <form action="" method="post">
+                                    <input type="hidden" name="id" value="1"/>
 
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-xs-6">
                                                 <label for="firstName">First Name</label> <input
                                                         type="text" class="form-control" id="firstName"
-                                                        name="firstName" />
+                                                        name="firstName"/>
                                             </div>
                                             <div class="col-xs-6">
                                                 <label for="lastName">Last Name</label> <input type="text"
-                                                                                               class="form-control" id="lastName" name="lastName" />
+                                                                                               class="form-control"
+                                                                                               id="lastName"
+                                                                                               name="lastName"/>
                                             </div>
                                         </div>
                                     </div>
@@ -54,13 +55,13 @@
                                     <div class="form-group">
                                         <label for="userName">Username</label>
                                         <input type="text"
-                                               class="form-control" id="userName" name="username" />
+                                               class="form-control" id="userName" name="username"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="currentPassword">Current Password</label>
                                         <input
                                                 type="password" class="form-control" id="currentPassword"
-                                                name="password"  />
+                                                name="password"/>
                                     </div>
                                     <p style="color: #828282">Enter your current password to
                                         change the email address or password.</p>
@@ -80,18 +81,19 @@
                                         <label for="txtNewPassword">Password</label>&nbsp;<span
                                                 id="checkPasswordMatch" style="color: red;"></span> <input
                                                 type="password" class="form-control" id="txtNewPassword"
-                                                name="newPassword" />
+                                                name="newPassword"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="txtConfirmPassword">Confirm Password</label> ' <input
-                                                type="password" class="form-control" id="txtConfirmPassword" />
+                                                type="password" class="form-control" id="txtConfirmPassword"/>
                                     </div>
                                     <p style="color: #828282">To change the current user
                                         password, enter the new password in both fields.</p>
 
                                     <button id="updateUserInfoButton" type="submit"
-                                            class="btn btn-primary">Save All</button>
+                                            class="btn btn-primary">Save All
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -132,7 +134,7 @@
                                                     Order Detail for Purchase #<span th:text="${order.id}"></span>
                                                 </h2>
                                             </div>
-                                            <hr />
+                                            <hr/>
 
                                             <div class="row">
                                                 <div class="col-xs-4">
@@ -153,9 +155,10 @@
                                                             <strong>Payment Information</strong>
                                                         </div>
                                                         <div class="panel-body">
-                                                            <span>Card Name</span><br /> <span>Card
-																	Number</span><br /> <span>Exp Date:</span><span></span>/<span
-                                                                    th:text="${order.payment.expiryYear}"></span><br />
+                                                            <span>Card Name</span><br/> <span>Card
+																	Number</span><br/>
+                                                            <span>Exp Date:</span><span></span>/<span
+                                                                    th:text="${order.payment.expiryYear}"></span><br/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,7 +208,8 @@
                                                         <tr>
                                                             <td class="highrow"></td>
                                                             <td class="highrow"></td>
-                                                            <td class="highrow text-center"><strong>Subtotal</strong></td>
+                                                            <td class="highrow text-center"><strong>Subtotal</strong>
+                                                            </td>
                                                             <td class="highrow text-right"></td>
                                                         </tr>
                                                         <tr>
@@ -215,10 +219,11 @@
                                                             <td class="emptyrow text-right"></td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+                                                            <td class="emptyrow"><i class="fa fa-barcode iconbig"></i>
+                                                            </td>
                                                             <td class="emptyrow"></td>
                                                             <td class="emptyrow text-center"><strong>Total</strong></td>
-                                                            <td	class="emptyrow text-right"></td>
+                                                            <td class="emptyrow text-right"></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -239,14 +244,15 @@
                         <div class="panel panel-default" style="border: none;">
                             <div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
                                 <div class="row">
-                                    <div class = "col-xs-6">
+                                    <div class="col-xs-6">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="#">List of Credit Cards</a></li>
                                         </ol>
                                     </div>
-                                    <div class = "col-xs-6">
-                                        <ol class = "breadcrumb">
-                                            <li class="breadcrumb-item active"><a href="#">Add(Update)Credit Card</a></li>
+                                    <div class="col-xs-6">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item active"><a href="#">Add(Update)Credit Card</a>
+                                            </li>
                                         </ol>
                                     </div>
                                 </div>
@@ -265,7 +271,9 @@
                                             <tr>
                                                 <td><input type="radio" name="defaultUserPaymentId"/></td>
                                                 <td></td>
-                                                <td><a><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a><i class="fa fa-times"></i></a></td>
+                                                <td><a><i></i>some action</a>&nbsp;
+                                                    <a><i></i>some action</a>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -278,40 +286,41 @@
                                 <div>
                                     <form action="" method="post">
 
-                                        <input hidden="hidden" name="id" />
+                                        <input hidden="hidden" name="id"/>
 
                                         <div class="form-group">
                                             <h5>* Give a name for your card:</h5>
                                             <input type="text" class="form-control" id="cardName"
                                                    placeholder="Card Name" th:name="cardName"
-                                                   required="required" th:value="${userPayment.cardName}" />
+                                                   required="required" th:value="${userPayment.cardName}"/>
                                         </div>
 
                                         <!-- Billing Address -->
-                                        <hr />
+                                        <hr/>
                                         <div class="form-group">
                                             <h4>Billing Address</h4>
                                         </div>
                                         <div class="form-group">
                                             <label for="billingName">* Name</label> <input type="text"
-                                                                                           class="form-control" id="billingName"
-                                                                                           placeholder="Receiver Name" required="required" />
+                                                                                           class="form-control"
+                                                                                           id="billingName"
+                                                                                           placeholder="Receiver Name"
+                                                                                           required="required"/>
                                         </div>
                                         <div class="form-group">
-                                            <label for="billingAddress">* Street Address</label> <input
+                                            <label for="billingAddress">* Street Address</label>
+                                            <input
                                                     type="text" class="form-control" id="billingAddress"
-                                                    placeholder="Street Address 1" th:name="userBillingStreet1"
-                                                    required="required" /> <input
-                                                    type="text" class="form-control" id="billingAddress"
-                                                    placeholder="Street Address 2" />
+                                                    placeholder="Street Address" required="required"/>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-xs-4">
                                                 <div class="form-group">
                                                     <label for="billingCity">* City</label> <input type="text"
-                                                                                                   class="form-control" id="billingCity"
-                                                                                                   placeholder="Billing city" />
+                                                                                                   class="form-control"
+                                                                                                   id="billingCity"
+                                                                                                   placeholder="Billing city"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-4">
@@ -319,7 +328,8 @@
                                                     <label for="billingState">* State</label> <select
                                                             id="billingState" class="form-control" required="required">
                                                         <option value="" disabled="disabled">Please
-                                                            select an option</option>
+                                                            select an option
+                                                        </option>
                                                         <option></option>
                                                     </select>
                                                 </div>
@@ -328,19 +338,19 @@
                                                 <div class="form-group">
                                                     <label for="billingZipcode">* Zipcode</label> <input
                                                             type="text" class="form-control" id="billingZipcode"
-                                                            placeholder="Billing Zipcode" required="required" />
+                                                            placeholder="Billing Zipcode" required="required"/>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <!-- Credit Card Information -->
-                                        <hr />
+                                        <hr/>
                                         <div class="form-group">
                                             <h4>Credit Card Information</h4>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12">
-                                                <img src="image/creditcard.png" class="img-responsive" /><br />
+                                                <img src="image/creditcard.png" class="img-responsive"/><br/>
                                                 <div class="form-group">
                                                     <label for="cardType">* Select Card Type:</label> <select
                                                             class="form-control" id="cardType" th:name="type"
@@ -354,16 +364,18 @@
                                                 <div class="form-group">
                                                     <label for="cardHolder">* Card Holder Name:</label> <input
                                                             type="text" class="form-control" id="cardHolder"
-                                                            required="required" placeHolder="Card Holder Name" />
+                                                            required="required" placeHolder="Card Holder Name"/>
 
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="cardNumber">* Card Number:</label>
                                                     <div class="input-group">
                                                         <input type="tel" class="form-control" id="cardNumber"
-                                                               required="required" placeHolder="Valid Card Number" /> <span
+                                                               required="required" placeHolder="Valid Card Number"/>
+                                                        <span
                                                                 class="input-group-addon"><i
-                                                                    class="fa fa-credit-card" aria-hidden="true"></i></span>
+                                                                    class="fa fa-credit-card"
+                                                                    aria-hidden="true"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -416,14 +428,18 @@
                                             <div class="col-xs-5">
                                                 <div class="form-group">
                                                     <label for="cardCVC">CV Code</label> <input id="cardCVC"
-                                                                                                type="tel" class="form-control" name="cvc"
-                                                                                                placeholder="CVC" th:name="cvc" />
+                                                                                                type="tel"
+                                                                                                class="form-control"
+                                                                                                name="cvc"
+                                                                                                placeholder="CVC"
+                                                                                                th:name="cvc"/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr />
+                                        <hr/>
                                         <button type="submit" class="btn btn-primary btn-lg">Save
-                                            All</button>
+                                            All
+                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -438,14 +454,14 @@
                             <div class="panel-body"
                                  style="background-color: #ededed; margin-top: 20px;">
 
-                                <div class = "row">
-                                    <div class = "col-xs-6">
+                                <div class="row">
+                                    <div class="col-xs-6">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item active"><a>List of Shipping Addresses</a></li>
                                         </ol>
                                     </div>
-                                    <div class = "col-xs-6">
-                                        <ol class = "breadcrumb">
+                                    <div class="col-xs-6">
+                                        <ol class="breadcrumb">
                                             <li class="breadcrumb-item active"><a>Add(Update)Shipping Address</a></li>
                                         </ol>
                                     </div>
@@ -463,9 +479,11 @@
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td><input type="radio"	name="defaultShippingAddressId" /><span>default</span></td>
+                                                <td><input type="radio"
+                                                           name="defaultShippingAddressId"/><span>default</span></td>
                                                 <td></td>
-                                                <td><a><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a><i class="fa fa-times"></i></a></td>
+                                                <td><a><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a><i
+                                                                class="fa fa-times"></i></a></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -476,24 +494,25 @@
                                 <div>
                                     <form action="" method="post">
 
-                                        <input hidden="hidden" name="id" />
+                                        <input hidden="hidden" name="id"/>
 
                                         <!-- Shipping Address -->
-                                        <hr />
+                                        <hr/>
                                         <div class="form-group">
                                             <h4>Shipping Address</h4>
                                         </div>
                                         <div class="form-group">
                                             <label for="shippingName">* Name</label> <input type="text"
-                                                                                            class="form-control" id="shippingName"
-                                                                                            placeholder="Receiver Name" />
+                                                                                            class="form-control"
+                                                                                            id="shippingName"
+                                                                                            placeholder="Receiver Name"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="shippingAddress">* Street Address</label> <input
                                                     type="text" class="form-control" id="shippingAddress"
                                                     placeholder="Street Address 1" required="required"/> <input
                                                     type="text" class="form-control"
-                                                    placeholder="Street Address 2" th:name="userShppingStreet2" />
+                                                    placeholder="Street Address 2" th:name="userShppingStreet2"/>
 
                                         </div>
 
@@ -502,15 +521,16 @@
                                                 <div class="form-group">
                                                     <label for="shippingCity">* City</label> <input
                                                             type="text" class="form-control" id="shippingCity"
-                                                            placeholder="Shipping City" required="required" />
+                                                            placeholder="Shipping City" required="required"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-4">
                                                 <div class="form-group">
                                                     <label for="shippingState">* State</label> <select
-                                                            id="shippingState" class="form-control"	required="required">
+                                                            id="shippingState" class="form-control" required="required">
                                                         <option value="" disabled="disabled">Please
-                                                            select an option</option>
+                                                            select an option
+                                                        </option>
                                                         <option></option>
                                                     </select>
                                                 </div>
@@ -524,9 +544,10 @@
                                             </div>
                                         </div>
 
-                                        <hr />
+                                        <hr/>
                                         <button type="submit" class="btn btn-primary btn-lg">Save
-                                            All</button>
+                                            All
+                                        </button>
                                     </form>
                                 </div>
                             </div>

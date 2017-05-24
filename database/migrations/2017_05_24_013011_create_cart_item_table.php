@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBillingAddressesTable extends Migration
+class CreateCartItemTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class CreateBillingAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::create('billing_addresses', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->integer('quantity');
+            $table->double('subtotal');
+            $table->unsignedInteger('book_id');
+            $table->unsignedInteger('shopping_cart_id');
+            $table->unsignedInteger('order_id');
+
         });
     }
 
@@ -26,6 +31,6 @@ class CreateBillingAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('billing_addresses');
+        //
     }
 }

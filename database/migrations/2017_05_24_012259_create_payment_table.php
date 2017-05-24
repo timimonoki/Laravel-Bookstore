@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaymentsTable extends Migration
+class CreatePaymentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,14 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('card_name');
+            $table->string('card_number');
+            $table->integer('cvc')->nullable(false)->change();
+            $table->integer('expiry_month')->nullable(false)->change();
+            $table->integer('expiry_year')->nullable(false)->change();
+            $table->string('holder_name');
+            $table->unsignedInteger('user_id');
+
         });
     }
 
@@ -26,6 +33,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        //
     }
 }

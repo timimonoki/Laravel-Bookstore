@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    public  function cart_item(){
-        return $this->belongsTo('App\CartItem');
+    protected $table = 'books';
+    public $timestamps = false;
+
+    public function getCartItem(){
+        return $this->hasMany('App\CartItem','book_id');
     }
 }
