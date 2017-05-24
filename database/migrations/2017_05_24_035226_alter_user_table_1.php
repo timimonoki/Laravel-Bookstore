@@ -17,7 +17,6 @@ class AlterUserTable1 extends Migration
         {
             $table->string('remember_token');
         });
-
     }
 
     /**
