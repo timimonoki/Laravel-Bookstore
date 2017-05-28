@@ -31,51 +31,57 @@
                         <div class="panel panel-default" style="border: none;">
                             <div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
 
+
+                                @if (isset($uncorrespondingPassword) && $uncorrespondingPassword == 1)
+                                    <div class="alert alert-danger">
+                                    <strong>Incorrect Password!</strong> Please enter a correct password for the current user.
+                                    </div>
+                                @endif
+
+                                    @if (isset($unexisitngUser) && $unexisitngUser == 1)
+                                        <div class="alert alert-danger">
+                                            <strong>Wrong username! </strong> Please enter the correct username
+                                        </div>
+                                @endif
+
                                 <!-- Send a form with details about profile to be updated -->
 
-                                <form action="" method="post">
+                                <form action= "{{ route('editMyProfile') }}" method="post">
                                     <input type="hidden" name="id" value="1"/>
+
+                                    <div class="form-group">
+                                        <label for="userName">* Username</label>
+                                        <input type="text" class="form-control" id="userName" name="username" required/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="currentPassword">* Current Password</label>
+                                        <input
+                                                type="password" class="form-control" id="currentPassword"
+                                                name="password" required/>
+                                    </div>
+                                    <p style="color: #828282">Enter your current password to change the email address or password.</p>
 
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-xs-6">
-                                                <label for="firstName">First Name</label> <input
-                                                        type="text" class="form-control" id="firstName"
-                                                        name="firstName"/>
+                                                <label for="firstName">First Name</label>
+                                                <input type="text" class="form-control" id="firstName" name="firstName"/>
                                             </div>
                                             <div class="col-xs-6">
-                                                <label for="lastName">Last Name</label> <input type="text"
-                                                                                               class="form-control"
-                                                                                               id="lastName"
-                                                                                               name="lastName"/>
+                                                <label for="lastName">Last Name</label>
+                                                <input type="text" class="form-control" id="lastName" name="lastName"/>
                                             </div>
                                         </div>
                                     </div>
+                                    <p  style="color: #828282">Enter your first name and last name if you want to change it</p>
 
                                     <div class="form-group">
-                                        <label for="userName">Username</label>
-                                        <input type="text"
-                                               class="form-control" id="userName" name="username"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="currentPassword">Current Password</label>
-                                        <input
-                                                type="password" class="form-control" id="currentPassword"
-                                                name="password"/>
-                                    </div>
-                                    <p style="color: #828282">Enter your current password to
-                                        change the email address or password.</p>
-
-                                    <div class="form-group">
-                                        <label for="email">* Email Address</label> ' <input
+                                        <label for="email">Email Address</label>  <input
                                                 type="text" class="form-control" id="email" name="email"/>
 
                                     </div>
-                                    <p style="color: #828282">A valid email address. All
-                                        emails from the system will be sent to this address. The
-                                        email address is not made public and will only be used if you
-                                        wish to receive a new password or wish to receive certain
-                                        notification.</p>
+                                    <p style="color: #828282">Enter a valid email address if you want to change your current email address</p>
 
                                     <div class="form-group">
                                         <label for="txtNewPassword">Password</label>&nbsp;<span
@@ -83,13 +89,13 @@
                                                 type="password" class="form-control" id="txtNewPassword"
                                                 name="newPassword"/>
                                     </div>
+                                    <p style="color: #828282">Enter a new password if you wish to change your current password</p>
 
                                     <div class="form-group">
-                                        <label for="txtConfirmPassword">Confirm Password</label> ' <input
+                                        <label for="txtConfirmPassword">Confirm Password</label>  <input
                                                 type="password" class="form-control" id="txtConfirmPassword"/>
                                     </div>
-                                    <p style="color: #828282">To change the current user
-                                        password, enter the new password in both fields.</p>
+                                    <p style="color: #828282">Reenter the new password</p>
 
                                     <button id="updateUserInfoButton" type="submit"
                                             class="btn btn-primary">Save All

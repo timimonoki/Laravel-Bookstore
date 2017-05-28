@@ -18,9 +18,10 @@ Route::get('/sign-in', function(){
     return view('templates.myAccount');
 })->name('myAccount');
 
-Route::get('/my-profile', function (){
-    return view('templates.myProfile');
-})->name('myProfile');
+Route::get('/my-profile', ['as' => 'myProfile', 'uses' => 'MyProfileController@goToMyProfile']);
+Route::post('/edit-myProfile', ['as' => 'editMyProfile', 'uses' => 'MyProfileController@editOnMyProfile']);
+
+Route::get('edit-myprofile', 'MyProfileController@ordersOnMyProfile');
 
 Route::get('/books', function (){
     return view('templates.bookshelf');
