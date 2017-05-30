@@ -20,8 +20,29 @@ class CreateCartItemTable extends Migration
             $table->unsignedInteger('book_id');
             $table->unsignedInteger('shopping_cart_id');
             $table->unsignedInteger('order_id');
-
         });
+
+        DB::table('cart_items')->insert(
+            array(
+                'id' => 1,
+                'quantity' => 2,
+                'subtotal' => 100,
+                'book_id' => 1,
+                'shopping_cart_id' => 1,
+                'order_id' => 1
+            )
+        );
+
+        DB::table('cart_items')->insert(
+            array(
+                'id' => 2,
+                'quantity' => 1,
+                'subtotal' => 89.9,
+                'book_id' => 2,
+                'shopping_cart_id' => 1,
+                'order_id' => 1
+            )
+        );
     }
 
     /**

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en">
 
 @include('common.header')
 
 <body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/userDefined/myProfile.js"></script>
 @include('common.navbar')
 
 <div class="container">
@@ -17,7 +20,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab-1" data-toggle="tab"><span style="color: red;">Edit</span></a></li>
-                <li><a href="#tab-2" data-toggle="tab"><span style="color: red;">Orders</span></a></li>
+                <li><a href="#tab-2" data-toggle="tab" id="someSpecial"><span style="color: red;">Orders</span></a></li>
                 <li><a href="#tab-3" data-toggle="tab"><span style="color: red;">Billing</span></a></li>
                 <li><a href="#tab-4" data-toggle="tab"><span style="color: red;">Shipping</span></a></li>
             </ul>
@@ -44,9 +47,28 @@
                                         </div>
                                 @endif
 
+                                    {{--<script>--}}
+                                        {{--$(function () {--}}
+                                            {{--$("#updateUserInfoButton").click(function()  {--}}
+
+                                                {{--$.ajax({--}}
+                                                    {{--type: 'POST',--}}
+                                                    {{--url: '/edit-myProfile',--}}
+                                                    {{--data: $("#editMyProfileForm").serializeArray(),--}}
+                                                    {{--success: function () {--}}
+                                                        {{--alert('form was submitted');--}}
+                                                    {{--}--}}
+                                                {{--});--}}
+
+                                              {{--event.preventDefault();// using this page stop being refreshing--}}
+
+                                            {{--});--}}
+                                        {{--});--}}
+                                    {{--</script>--}}
+
                                 <!-- Send a form with details about profile to be updated -->
 
-                                <form action= "{{ route('editMyProfile') }}" method="post">
+                                <form id = "editMyProfileForm" method="POST" action="{{ route('editMyProfile') }}">
                                     <input type="hidden" name="id" value="1"/>
 
                                     <div class="form-group">
@@ -106,6 +128,7 @@
                     </div>
                 </div>
 
+
                 <!-- Order Information -->
                 <div class="tab-pane fade" id="tab-2">
 
@@ -113,6 +136,7 @@
                         <div class="panel panel-default" style="border: none;">
                             <div class="panel-body" style="background-color: #ededed; margin-top: 20px;">
 
+                                <div id="orderSummaryOnPurchases">
                                 <table class="table table-sm table-inverse">
                                     <thead>
                                     <tr>
@@ -123,21 +147,29 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr class="orderDetails">
+                                        <td class="orderDate"></td>
+                                        <td class="orderNumber"></td>
+                                        <td class="total"></td>
+                                        <td class="status"></td>
+                                    </tr>
+                                    <tr class="orderDetails">
+                                        <td class="orderDate"></td>
+                                        <td class="orderNumber"></td>
+                                        <td class="total"></td>
+                                        <td class="status"></td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                </div>
 
-                                <div>
+
+                                <div id="orderDetailsForPurchase" style="display: none">
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <div class="text-center">
                                                 <h2>
-                                                    Order Detail for Purchase #<span th:text="${order.id}"></span>
+                                                    Order Detail for Purchase <span></span>
                                                 </h2>
                                             </div>
                                             <hr/>
@@ -148,9 +180,14 @@
                                                         <div class="panel-heading">
                                                             <strong>Billing Details</strong>
                                                         </div>
-                                                        <div class="panel-body">
-
-                                                            <!-- To be completed with billing details -->
+                                                        <div class="panel-body billingDetails">
+                                                            <strong>Name:   </strong><span class="name"></span><br/>
+                                                            <strong>Country:   </strong><span class="country"></span><br/>
+                                                            <strong>City:   </strong><span class="city"></span><br/>
+                                                            <strong>Street:   </strong><span class="street"></span><br/>
+                                                            <strong>Street number:   </strong><span class="streetNumber"></span><br/>
+                                                            <strong>County:   </strong><span class="county"></span><br/>
+                                                            <strong>Zipcode:   </strong><span class="zipcode"></span><br/>
 
                                                         </div>
                                                     </div>
@@ -160,11 +197,11 @@
                                                         <div class="panel-heading">
                                                             <strong>Payment Information</strong>
                                                         </div>
-                                                        <div class="panel-body">
-                                                            <span>Card Name</span><br/> <span>Card
-																	Number</span><br/>
-                                                            <span>Exp Date:</span><span></span>/<span
-                                                                    th:text="${order.payment.expiryYear}"></span><br/>
+                                                        <div class="panel-body cardDetails">
+                                                            <strong>Card name:    </strong><span class="cardName"></span><br/>
+                                                            <strong>Card number:   </strong><span class="cardNumber"></span><br/>
+                                                            <strong>Expiry year:   </strong><span class="expYear"></span><br/>
+                                                            <strong>Expiry month:   </strong><span class="expMonth"></span><br/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,9 +210,14 @@
                                                         <div class="panel-heading">
                                                             <strong>Shipping Details</strong>
                                                         </div>
-                                                        <div class="panel-body">
-
-                                                            <!-- To be completed with shipping details -->
+                                                        <div class="panel-body shippingDetails">
+                                                            <strong>Name:   </strong><span class="name"></span><br/>
+                                                            <strong>Country:   </strong><span class="country"></span><br/>
+                                                            <strong>City:   </strong><span class="city"></span><br/>
+                                                            <strong>Street:   </strong><span class="street"></span><br/>
+                                                            <strong>Street number:   </strong><span class="streetNumber"></span><br/>
+                                                            <strong>County:   </strong><span class="county"></span><br/>
+                                                            <strong>Zipcode:   </strong><span class="zipcode"></span><br/>
 
                                                         </div>
                                                     </div>
@@ -195,41 +237,35 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-condensed">
                                                         <thead>
-                                                        <tr>
+                                                        <tr class="itemDetails">
                                                             <td><strong>Item Name</strong></td>
-                                                            <td class="text-center"><strong>Item
-                                                                    Price</strong></td>
-                                                            <td class="text-center"><strong>Item
-                                                                    Quantity</strong></td>
-                                                            <td class="text-right"><strong>Total</strong></td>
+                                                            <td><strong>Item Price</strong></td>
+                                                            <td><strong>Item Quantity</strong></td>
+                                                            <td><strong>Subtotal</strong></td>
+                                                            <td><strong>Total</strong></td>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         <tr>
-                                                            <td></td>
-                                                            <td class="text-center"></td>
-                                                            <td class="text-center"></td>
-                                                            <td class="text-center"></td>
+                                                            <td class="itemName"></td>
+                                                            <td class="itemPrice"></td>
+                                                            <td class="itemQuantity"></td>
+                                                            <td class="itemSubtotal"></td>
+                                                            <td class="itemTotal"></td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="highrow"></td>
-                                                            <td class="highrow"></td>
-                                                            <td class="highrow text-center"><strong>Subtotal</strong>
-                                                            </td>
-                                                            <td class="highrow text-right"></td>
+                                                            <td class="itemName"></td>
+                                                            <td class="itemPrice"></td>
+                                                            <td class="itemQuantity"></td>
+                                                            <td class="itemSubtotal"></td>
+                                                            <td class="itemTotal"></td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="emptyrow"></td>
-                                                            <td class="emptyrow"></td>
-                                                            <td class="emptyrow text-center"><strong>Tax</strong></td>
-                                                            <td class="emptyrow text-right"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="emptyrow"><i class="fa fa-barcode iconbig"></i>
-                                                            </td>
-                                                            <td class="emptyrow"></td>
-                                                            <td class="emptyrow text-center"><strong>Total</strong></td>
-                                                            <td class="emptyrow text-right"></td>
+                                                            <td class="itemName"></td>
+                                                            <td class="itemPrice"></td>
+                                                            <td class="itemQuantity"></td>
+                                                            <td class="itemSubtotal"></td>
+                                                            <td class="itemTotal"></td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -243,6 +279,11 @@
                     </div>
                 </div>
 
+                <script>
+
+
+                </script>
+
                 <!-- Billing Information -->
                 <div class="tab-pane fade" id="tab-3">
 
@@ -252,52 +293,65 @@
                                 <div class="row">
                                     <div class="col-xs-6">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="#">List of Credit Cards</a></li>
+                                            <li class="breadcrumb-item listOfCreditCardsDiv">
+                                                <button type="button" class="btn btn-link listOfCreditCards">List of Credit Cards</button>
+                                            </li>
                                         </ol>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-6 addUpdateCreditCardDiv">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item active"><a href="#">Add(Update)Credit Card</a>
+                                            <li class="breadcrumb-item active ">
+                                                <button type="button" class="btn btn-link addUpdateCreditCard">Add(Update)Credit Card</button>
                                             </li>
                                         </ol>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <form action="" method="post">
+                                    <form class="listOfCreditCardsForm">
                                         <table class="table">
                                             <thead>
                                             <tr>
                                                 <th>Default</th>
                                                 <th>Credit Card</th>
-                                                <th>Operations</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td><input type="radio" name="defaultUserPaymentId"/></td>
-                                                <td></td>
-                                                <td><a><i></i>some action</a>&nbsp;
-                                                    <a><i></i>some action</a>
+                                                <td class="creditCard">
+                                                    <strong>Card name:   </strong><span class="cardName"></span><br/>
+                                                    <strong>Card number:   </strong><span class="cardNumber"></span><br/>
+                                                    <strong>Expiry month:   </strong><span class="expMonth"></span><br/>
+                                                    <strong>Expiry year:   </strong><span class="expYear"></span><br/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio" name="defaultUserPaymentId"/></td>
+                                                <td class="creditCard">
+                                                    <strong>Card name:   </strong><span class="cardName"></span><br/>
+                                                    <strong>Card number:   </strong><span class="cardNumber"></span><br/>
+                                                    <strong>Expiry month:   </strong><span class="expMonth"></span><br/>
+                                                    <strong>Expiry year:   </strong><span class="expYear"></span><br/>
                                                 </td>
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary submitDefaultPayment" type="submit">Save</button>
                                     </form>
                                 </div>
 
 
                                 <!-- Send data about credit card update  -->
                                 <div>
-                                    <form action="" method="post">
+                                    <form action="" method="post" class="addUpdateCreditCardForm">
 
                                         <input hidden="hidden" name="id"/>
 
                                         <div class="form-group">
                                             <h5>* Give a name for your card:</h5>
                                             <input type="text" class="form-control" id="cardName"
-                                                   placeholder="Card Name" th:name="cardName"
+                                                   placeholder="Card Name"
                                                    required="required" th:value="${userPayment.cardName}"/>
                                         </div>
 

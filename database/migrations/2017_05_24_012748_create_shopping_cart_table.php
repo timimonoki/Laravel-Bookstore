@@ -17,8 +17,15 @@ class CreateShoppingCartTable extends Migration
             $table->increments('id');
             $table->double('grand_total');
             $table->unsignedInteger('user_id');
-
         });
+
+        DB::table('shopping_carts')->insert(
+            array(
+                'id' => 1,
+                'grand_total' => 189.9,
+                'user_id' => 1
+            )
+        );
     }
 
     /**

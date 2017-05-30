@@ -17,4 +17,8 @@ class Payment extends Model
     public function getOrder(){
         return $this->hasMany('App\Order','payment_id');
     }
+
+    public function getUserForDefaultPayment(){
+        return $this->hasOne('App\User', 'default_payment_id');
+    }
 }

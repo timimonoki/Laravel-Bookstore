@@ -33,4 +33,8 @@ class User extends Authenticatable
         return $this->hasOne('App\ShoppingCart','user_id');
     }
 
+    public function getDefaultPayment(){
+        return $this->belongsTo('App\Payment','default_payment_id');
+    }
+
 }

@@ -17,13 +17,25 @@ class CreatePaymentTable extends Migration
             $table->increments('id');
             $table->string('card_name');
             $table->string('card_number');
-            $table->integer('cvc')->nullable(false)->change();
-            $table->integer('expiry_month')->nullable(false)->change();
-            $table->integer('expiry_year')->nullable(false)->change();
+            $table->integer('cvc')->nullable(false);
+            $table->string('expiry_month')->nullable(false);
+            $table->string('expiry_year')->nullable(false);
             $table->string('holder_name');
             $table->unsignedInteger('user_id');
-
         });
+
+        DB::table('payments')->insert(
+            array(
+                'id' => 1,
+                'card_name' => 'Visa',
+                'card_number' => '5430 0001 0002 0003',
+                'cvc' => 111,
+                'expiry_month' => '01',
+                'expiry_year' => '2020',
+                'holder_name' => 'Monoki Timea',
+                'user_id' => 1
+            )
+        );
     }
 
     /**

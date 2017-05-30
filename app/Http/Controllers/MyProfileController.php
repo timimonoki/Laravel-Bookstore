@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use App\User;
-use UserDAO;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class MyProfileController extends Controller
 {
@@ -27,7 +28,6 @@ class MyProfileController extends Controller
         $unexisitngUser = 0;
 
         $user = User::where('username', $username )->get();
-        echo $user;
 
         if(sizeof($user) > 1){
             throw new Exception("More than one user with the same username");
@@ -58,14 +58,83 @@ class MyProfileController extends Controller
         return view('templates.myProfile', ['uncorrespondingPassword' => $uncorrespondingPassword, 'unexisitngUser' => $unexisitngUser]);
     }
 
-    public function ordersOnMyProfile(){
-        return view('templates.myProfile');
+    public function ordersOnMyProfile($username){
+        $orderDetails = DB::table('orders')
+                            ->join('users', 'orders.user_id', '=', 'users.id')
+                            ->select('orders.order_date', 'orders.id', 'orders.order_total', 'orders.order_status')
+                            ->where('users.username', '=', $username)
+                            ->get();
 
+
+        return Response::json(['orderDetails' => $orderDetails]);
     }
 
-    public function billingOnMyProfile(){
 
+    public function orderDetailsOnMyProfile($username, $orderId){
+        $billingDetails = DB::table('billing_address')
+            ->join('users', 'billing_address.user_id', '=', 'users.id')
+            ->join('orders','orders.billing_address_id','=','billing_address.id')
+            ->select('billing_address.*')
+            ->where('users.username', '=', $username,'and')
+            ->where('orders.id', '=', $orderId)
+            ->first();
+
+        $paymentInformation = DB::table('payments')
+            ->join('users', 'payments.user_id', '=', 'users.id')
+            ->join('orders','orders.payment_id', '=','payments.id')
+            ->select('payments.card_name', 'payments.card_number', 'payments.expiry_year', 'payments.expiry_month')
+            ->where('users.username','=', $username)
+            ->where('orders.id', '=', $orderId)
+            ->first();
+
+        $shippingDetails = DB::table('shipping_address')
+            ->join('users', 'shipping_address.user_id', '=', 'users.id')
+            ->join('orders','orders.shipping_address_id','=','shipping_address.id')
+            ->select('shipping_address.*')
+            ->where('users.username', '=', $username)
+            ->where('orders.id', '=', $orderId)
+            ->first();
+
+        $orderSummary = DB::table('orders')
+            ->join('users', 'orders.user_id','=','users.id')
+            ->join('cart_items', 'cart_items.order_id', '=', 'orders.id')
+            ->join('books', 'cart_items.book_id','=','books.id')
+            ->select('books.title', 'books.our_price', 'cart_items.quantity', 'cart_items.subtotal', 'orders.order_total')
+            ->where('users.username','=', $username)
+            ->where('orders.id', '=', $orderId)
+            ->get();
+
+        return Response::json(['billingDetails' => $billingDetails,
+            'paymentInformation' => $paymentInformation,
+            'shippingDetails' => $shippingDetails,
+            'orderSummary' => $orderSummary]);
     }
 
-    public function shippingOnMyProfile(){}
+
+   public function listOfCreditCards($username){
+       $creditCards = DB::table('payments')
+           ->join('users', 'payments.user_id', '=', 'users.id')
+           ->select('payments.*')
+           ->where('users.username','=', $username)
+           ->get();
+
+       return Response::json(['creditCards' => $creditCards]);
+   }
+
+   public function setDefaultCreditCard($username, Request $request){
+        $cardNumber = $request['cardNumber'];
+
+        $paymentId = DB::table('payments')
+                    ->select('payments.id')
+                    ->where('payments.card_number', '=', $cardNumber)
+                    ->first();
+
+        $user = DB::table('users')
+                    ->select('users.*')
+                    ->where('users.username','=',$username)
+                    ->first();
+
+       $user->default_payment_id = $paymentId;
+       $user->save();
+   }
 }

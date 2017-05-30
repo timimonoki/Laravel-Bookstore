@@ -19,10 +19,26 @@ class CreateUsersTable extends Migration
             $table->smallInteger('enabled')->nullable(false);
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('password');
-            $table->string('phone');
             $table->string('username')->unique()->nullable(false);
+            $table->text('password');
+            $table->string('phone');
+            $table->smallInteger('default_payment_id')->nullable(true);
+            $table->string('remember_token');
         });
+
+        DB::table('users')->insert(
+            array(
+                'id' => 1,
+                'email' => 'timi_monoki@yahoo.com',
+                'enabled' => 1,
+                'first_name' => 'Timea',
+                'last_name' => 'Monoki',
+                'username' => 'timi',
+                'password' => '1234',
+                'phone' => '0742663558',
+                'remember_token' => '1'
+            )
+        );
     }
 
     /**

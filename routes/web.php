@@ -20,8 +20,10 @@ Route::get('/sign-in', function(){
 
 Route::get('/my-profile', ['as' => 'myProfile', 'uses' => 'MyProfileController@goToMyProfile']);
 Route::post('/edit-myProfile', ['as' => 'editMyProfile', 'uses' => 'MyProfileController@editOnMyProfile']);
-
-Route::get('edit-myprofile', 'MyProfileController@ordersOnMyProfile');
+Route::get('/orders-myProfile/{username}', ['as' => 'ordersMyProfile', 'uses' => 'MyProfileController@ordersOnMyProfile']);
+Route::get('/orderDetails-myProfile/{username}/{orderId}', ['as' => 'orderDetailsMyProfile', 'uses' => 'MyProfileController@orderDetailsOnMyProfile']);
+Route::get('/listOfCreditCards/{username}', ['as' => 'listOfCreditCards', 'uses' => 'MyProfileController@listOfCreditCards']);
+Route::post('/setDefaultCreditCard/{username}', ['as' => 'setDefaultCreditCard', 'uses' => 'MyProfileController@setDefaultCreditCard']);
 
 Route::get('/books', function (){
     return view('templates.bookshelf');
