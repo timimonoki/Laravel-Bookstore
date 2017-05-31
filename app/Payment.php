@@ -21,4 +21,8 @@ class Payment extends Model
     public function getUserForDefaultPayment(){
         return $this->hasOne('App\User', 'default_payment_id');
     }
+
+    public function getBillingAddress(){
+        return $this->belongsTo('App\BillingAddress');
+    }
 }

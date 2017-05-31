@@ -17,4 +17,8 @@ class BillingAddress extends Model
         return $this->hasMany('App\Order','billing_address_id');
     }
 
+    public function getPayment(){
+    	return $this->hasOne('App\Payment');
+    }
+
 }

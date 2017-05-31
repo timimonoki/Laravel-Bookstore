@@ -23,6 +23,7 @@ class CreateShippingAddressTable extends Migration
             $table->string('county');
             $table->string('zipcode');
             $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         DB::table('shipping_address')->insert(

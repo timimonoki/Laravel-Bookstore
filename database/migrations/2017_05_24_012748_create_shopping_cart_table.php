@@ -17,6 +17,7 @@ class CreateShoppingCartTable extends Migration
             $table->increments('id');
             $table->double('grand_total');
             $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         DB::table('shopping_carts')->insert(

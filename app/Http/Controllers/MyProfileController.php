@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use App\BillingAddress;
+use App\Payment;
 
 class MyProfileController extends Controller
 {
@@ -121,20 +123,76 @@ class MyProfileController extends Controller
        return Response::json(['creditCards' => $creditCards]);
    }
 
+
    public function setDefaultCreditCard($username, Request $request){
-        $cardNumber = $request['cardNumber'];
+        $cardNumber = $request->json('cardNumber');
 
         $paymentId = DB::table('payments')
                     ->select('payments.id')
                     ->where('payments.card_number', '=', $cardNumber)
                     ->first();
 
-        $user = DB::table('users')
-                    ->select('users.*')
-                    ->where('users.username','=',$username)
-                    ->first();
+        $user = User::where('username', $username )->first();
 
-       $user->default_payment_id = $paymentId;
-       $user->save();
+        $var = print_r($paymentId);
+        $user->default_payment_id = $var;
+
+       $user->save();      
    }
+
+
+   public function addUpdateCreditCard($username, Request $request){
+        $billingName = $request['billingName'];
+        $street = $request['street'];
+        $streetNumber = $request['streetNumber'];
+        $city = $request['city'];
+        $county = $request['county'];
+        $country = $request['country'];
+        $zipcode = $request['zipcode'];
+
+        $cardType = $request['cardType'];
+        $cardHolder = $request['cardHolder'];
+        $cardNumber = $request['cardNumber'];
+        $expiryMonth = $request['expiryMonth'];
+        $expiryYear = $request['expiryYear'];
+        $cvc = $request['cvc'];
+
+        $billing = BillingAddress::where('name', $billingName)->first();
+        $user = User::where('username', $username)->first();
+
+        if(sizeof($billing) == 0){
+            $billing = new BillingAddress;
+            $billing->name = $billingName;
+        }        
+         
+        $billing->street = $street;
+        $billing->street_number = $streetNumber;
+        $billing->city = $city;
+        $billing->county = $county;
+        $billing->country = $country;
+        $billing->zipcode = $zipcode;
+        $billing->user_id = $user->id;
+
+        $billing->save();
+
+        $savedBilling = BillingAddress::where('name', $billingName)->first();
+        $payment = Payment::where('card_number',$cardNumber)->first();
+
+        if(sizeof($payment) == 0){
+            $payment = new Payment;
+            $payment->card_name = $cardType;
+        }       
+        $payment->card_number = $cardNumber;
+        $payment->cvc = $cvc;
+        $payment->expiry_month = $expiryMonth;
+        $payment->expiry_year = $expiryYear;
+        $payment->holder_name = $cardHolder;
+        $payment->user_id = $user->id;
+        $payment->billing_address_id = $savedBilling->id;
+
+        $payment->save();  
+
+        echo "Credit card was succesfully added/updated!";  
+   }
+
 }

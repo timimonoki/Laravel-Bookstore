@@ -24,6 +24,7 @@ Route::get('/orders-myProfile/{username}', ['as' => 'ordersMyProfile', 'uses' =>
 Route::get('/orderDetails-myProfile/{username}/{orderId}', ['as' => 'orderDetailsMyProfile', 'uses' => 'MyProfileController@orderDetailsOnMyProfile']);
 Route::get('/listOfCreditCards/{username}', ['as' => 'listOfCreditCards', 'uses' => 'MyProfileController@listOfCreditCards']);
 Route::post('/setDefaultCreditCard/{username}', ['as' => 'setDefaultCreditCard', 'uses' => 'MyProfileController@setDefaultCreditCard']);
+Route::post('/addUpdateCreditCard/{username}', ['as' => 'addUpdateCreditCard', 'uses' => 'MyProfileController@addUpdateCreditCard']);
 
 Route::get('/books', function (){
     return view('templates.bookshelf');

@@ -14,5 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         '/my-profile',
         '/edit-myProfile',
+        '/setDefaultCreditCard/timi',
+        'addUpdateCreditCard/timi'
     ];
 }

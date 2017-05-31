@@ -8,6 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="js/userDefined/myProfile.js"></script>
+<script src="js/scripts.js"></script>
 @include('common.navbar')
 
 <div class="container">
@@ -308,7 +309,7 @@
                                 </div>
 
                                 <div>
-                                    <form class="listOfCreditCardsForm">
+                                    <form class="listOfCreditCardsForm" action="/setDefaultCreditCard/timi" method="POST">
                                         <table class="table">
                                             <thead>
                                             <tr>
@@ -346,59 +347,67 @@
                                 <div>
                                     <form action="" method="post" class="addUpdateCreditCardForm">
 
-                                        <input hidden="hidden" name="id"/>
-
-                                        <div class="form-group">
-                                            <h5>* Give a name for your card:</h5>
-                                            <input type="text" class="form-control" id="cardName"
-                                                   placeholder="Card Name"
-                                                   required="required" th:value="${userPayment.cardName}"/>
-                                        </div>
+                                        <input type="hidden" name="id">
 
                                         <!-- Billing Address -->
-                                        <hr/>
+                                    
                                         <div class="form-group">
                                             <h4>Billing Address</h4>
+                                            <hr/>
                                         </div>
                                         <div class="form-group">
-                                            <label for="billingName">* Name</label> <input type="text"
-                                                                                           class="form-control"
-                                                                                           id="billingName"
-                                                                                           placeholder="Receiver Name"
-                                                                                           required="required"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="billingAddress">* Street Address</label>
-                                            <input
-                                                    type="text" class="form-control" id="billingAddress"
-                                                    placeholder="Street Address" required="required"/>
+                                            <label for="billingName">* Name</label> 
+                                            <input type="text" class="form-control" id="billingName" placeholder="Receiver Name"                         name="billingName"  required="required"/>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingCity">* City</label> <input type="text"
-                                                                                                   class="form-control"
-                                                                                                   id="billingCity"
-                                                                                                   placeholder="Billing city"/>
+                                                    <label for="billingCity">* Street Address</label> 
+                                                    <input type="text" class="form-control" id="billingStreet"
+                                                                        name="street" placeholder="Billing street address"/>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingState">* State</label> <select
-                                                            id="billingState" class="form-control" required="required">
-                                                        <option value="" disabled="disabled">Please
-                                                            select an option
-                                                        </option>
-                                                        <option></option>
-                                                    </select>
+                                                    <label for="billingState">* Street Number</label>
+                                                    <input type="text" class="form-control" id="billingStateNr" 
+                                                                        name="streetNumber" placeholder="State">
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4">
+                                        </div>
+                                        
+                                        <div class="row">
+                                        <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingZipcode">* Zipcode</label> <input
-                                                            type="text" class="form-control" id="billingZipcode"
-                                                            placeholder="Billing Zipcode" required="required"/>
+                                                    <label for="billingState">* City</label>
+                                                    <input type="text" class="form-control" id="billingCity" 
+                                                                        name="city" placeholder="City">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="billingCity">* County</label> 
+                                                    <input type="text" class="form-control" id="billingCountry"
+                                                                        name="county" placeholder="Billing county"/>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="billingCity">* Country</label> 
+                                                    <input type="text" class="form-control" id="billingCounty"
+                                                                        name="country" placeholder="Billing country"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="billingState">* Zipcode</label>
+                                                    <input type="text" class="form-control" id="billingZipcode" 
+                                                                        name="zipcode" placeholder="Zipcode">
                                                 </div>
                                             </div>
                                         </div>
@@ -412,9 +421,8 @@
                                             <div class="col-xs-12">
                                                 <img src="image/creditcard.png" class="img-responsive"/><br/>
                                                 <div class="form-group">
-                                                    <label for="cardType">* Select Card Type:</label> <select
-                                                            class="form-control" id="cardType" th:name="type"
-                                                            th:value="${userPayment.type}">
+                                                    <label for="cardType">* Select Card Type:</label> 
+                                                    <select class="form-control" id="cardType" name="cardType">
                                                         <option value="visa">Visa</option>
                                                         <option value="mastercard">Mastercard</option>
                                                         <option value="discover">Discover</option>
@@ -422,20 +430,14 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="cardHolder">* Card Holder Name:</label> <input
-                                                            type="text" class="form-control" id="cardHolder"
-                                                            required="required" placeHolder="Card Holder Name"/>
-
+                                                    <label for="cardHolder">* Card Holder Name:</label>
+                                                     <input type="text" class="form-control" id="cardHolder" required="required"                name="cardHolder" placeHolder="Card Holder Name"/>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="cardNumber">* Card Number:</label>
                                                     <div class="input-group">
-                                                        <input type="tel" class="form-control" id="cardNumber"
-                                                               required="required" placeHolder="Valid Card Number"/>
-                                                        <span
-                                                                class="input-group-addon"><i
-                                                                    class="fa fa-credit-card"
-                                                                    aria-hidden="true"></i></span>
+                                                        <input type="text" class="form-control" id="cardNumber"
+                                                               name="cardNumber" required="required" placeHolder="Valid Card Number"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -487,19 +489,14 @@
                                             </div>
                                             <div class="col-xs-5">
                                                 <div class="form-group">
-                                                    <label for="cardCVC">CV Code</label> <input id="cardCVC"
-                                                                                                type="tel"
-                                                                                                class="form-control"
-                                                                                                name="cvc"
-                                                                                                placeholder="CVC"
-                                                                                                th:name="cvc"/>
+                                                    <label for="cardCVC">CV Code</label> 
+                                                    <input id="cardCVC" type="text" class="form-control" 
+                                                                         name="cvc" placeholder="CVC" />         
                                                 </div>
                                             </div>
                                         </div>
                                         <hr/>
-                                        <button type="submit" class="btn btn-primary btn-lg">Save
-                                            All
-                                        </button>
+                                        <button type="submit" class="btn btn-primary btn-lg">Save</button>
                                     </form>
                                 </div>
                             </div>
@@ -557,56 +554,69 @@
                                         <input hidden="hidden" name="id"/>
 
                                         <!-- Shipping Address -->
-                                        <hr/>
+                                    
                                         <div class="form-group">
                                             <h4>Shipping Address</h4>
-                                        </div>
+                                    
                                         <div class="form-group">
-                                            <label for="shippingName">* Name</label> <input type="text"
-                                                                                            class="form-control"
-                                                                                            id="shippingName"
-                                                                                            placeholder="Receiver Name"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="shippingAddress">* Street Address</label> <input
-                                                    type="text" class="form-control" id="shippingAddress"
-                                                    placeholder="Street Address 1" required="required"/> <input
-                                                    type="text" class="form-control"
-                                                    placeholder="Street Address 2" th:name="userShppingStreet2"/>
-
+                                            <label for="billingName">* Name</label> 
+                                            <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name"                         name="shippingName"  required="required"/>
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="shippingCity">* City</label> <input
-                                                            type="text" class="form-control" id="shippingCity"
-                                                            placeholder="Shipping City" required="required"/>
+                                                    <label for="billingCity">* Street Address</label> 
+                                                    <input type="text" class="form-control" id="billingStreet"
+                                                                        name="street" placeholder="Billing street address"/>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="shippingState">* State</label> <select
-                                                            id="shippingState" class="form-control" required="required">
-                                                        <option value="" disabled="disabled">Please
-                                                            select an option
-                                                        </option>
-                                                        <option></option>
-                                                    </select>
+                                                    <label for="billingState">* Street Number</label>
+                                                    <input type="text" class="form-control" id="billingStateNr" 
+                                                                        name="streetNumber" placeholder="State">
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4">
+                                        </div>
+                                        
+                                        <div class="row">
+                                        <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="shippingZipcode">* Zipcode</label> <input
-                                                            type="text" class="form-control" id="shippingZipcode"
-                                                            placeholder="Shipping Zipcode" required="required"/>
+                                                    <label for="billingState">* City</label>
+                                                    <input type="text" class="form-control" id="billingCity" 
+                                                                        name="city" placeholder="City">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="billingCity">* County</label> 
+                                                    <input type="text" class="form-control" id="billingCountry"
+                                                                        name="county" placeholder="Billing county"/>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="billingCity">* Country</label> 
+                                                    <input type="text" class="form-control" id="billingCounty"
+                                                                        name="country" placeholder="Billing country"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label for="billingState">* Zipcode</label>
+                                                    <input type="text" class="form-control" id="billingZipcode" 
+                                                                        name="zipcode" placeholder="Zipcode">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <hr/>
                                         <button type="submit" class="btn btn-primary btn-lg">Save
-                                            All
                                         </button>
                                     </form>
                                 </div>

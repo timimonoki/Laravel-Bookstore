@@ -24,6 +24,10 @@ class CreateOrderTable extends Migration
             $table->unsignedInteger('billing_address_id');
             $table->unsignedInteger('payment_id');
             $table->unsignedInteger('user_id');
+            $table->foreign('shipping_address_id')->references('id')->on('shipping_address');
+            $table->foreign('billing_address_id')->references('id')->on('billing_address');
+            $table->foreign('payment_id')->references('id')->on('payments');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         DB::table('orders')->insert(

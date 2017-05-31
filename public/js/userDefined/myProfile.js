@@ -91,8 +91,11 @@ function displayOrderDetails() {
 }
 
 function hideUpdateCrediCardFormOnBillingTab(){
-    //$('div.addUpdateCreditCardDiv').css("display", "none");
     $('form[class="addUpdateCreditCardForm"]').css("display", "none");
+}
+
+function displayUpdateCreditCardFormOnBillingTab(){
+    $('form[class="addUpdateCreditCardForm"]').css("display", "block");
 }
 
 function hideSetDefaultCreditCardOnBillingTab() {
@@ -103,8 +106,8 @@ function displaySetDefaultCreditCardOnBillingTab() {
     $('form[class="listOfCreditCardsForm"]').css("display", "block");
 }
 
-$(document).ready(function(){
-    $('a[href="#tab-3"]').on('click', function(){
+$(document).ready(function() {
+    $('a[href="#tab-3"]').on('click', function () {
         hideSetDefaultCreditCardOnBillingTab();
         hideUpdateCrediCardFormOnBillingTab();
 
@@ -112,12 +115,12 @@ $(document).ready(function(){
             displaySetDefaultCreditCardOnBillingTab();
 
             $.ajax({
-                url:'http://localhost:8090/Bookstore/laravel/public/listOfCreditCards/timi',
-                type:'GET'
+                url: 'http://localhost:8090/Bookstore/laravel/public/listOfCreditCards/timi',
+                type: 'GET'
             }).done(function (data) {
                 var jsonString = JSON.stringify(data);
                 var json = JSON.parse(jsonString);
-                for(var i=0; i<json["creditCards"].length; i++){
+                for (var i = 0; i < json["creditCards"].length; i++) {
                     $('td.creditCard span.cardName').html(json['creditCards'][0]['card_name']);
                     $('td.creditCard span.cardNumber').html(json['creditCards'][0]['card_number']);
                     $('td.creditCard span.expMonth').html(json['creditCards'][0]['expiry_month']);
@@ -126,20 +129,48 @@ $(document).ready(function(){
             })
         })
 
-        $('button.submitDefaultPayment').on('click', function () {
+
+          $("form.listOfCreditCardsForm").on('submit', function(e) {
+            e.preventDefault(); // avoid to execute the actual submit of the form.
             var parent = $(this).parent();
             var cardNumber = parent.find('td.creditCard span.cardNumber').html();
-
+            alert(JSON.stringify(cardNumber));
+        
             $.ajax({
-                url:'http://localhost:8090/Bookstore/laravel/public/setDefaultCreditCard/timi',
-                type:'POST',
-                data: cardNumber
-            }).done(function (data) {
-                alert("OK!!!");
+              type: "POST",
+              url: 'http://localhost:8090/Bookstore/laravel/public/setDefaultCreditCard/timi',
+              data: JSON.stringify(cardNumber),
+              contentType: "application/json; charset=utf-8"
+            }).done(function(){
+                alert('Credit card was succesfully set!');
             })
+        
         })
+
+          $('button.addUpdateCreditCard').on('click', function () {
+              hideSetDefaultCreditCardOnBillingTab();
+              displayUpdateCreditCardFormOnBillingTab();
+
+              $("form.addUpdateCreditCardForm").on('submit', function(e) {
+                e.preventDefault(); //avoid to execute the actual submit of the form
+                var data = $("form.addUpdateCreditCardForm").serialize();
+                var json = JSON.stringify(data);
+                alert(data);
+
+                $.ajax({
+                    type: "POST",
+                    url: 'http://localhost:8090/Bookstore/laravel/public/addUpdateCreditCard/timi',
+                    data: data
+                }).done(function() {
+                    alert('Credit card was succesfully added/updated!')
+                    $("form.addUpdateCreditCardForm")[0].reset();
+                })
+
+              })
+          })
+
+
+
 
     })
 })
-
-
