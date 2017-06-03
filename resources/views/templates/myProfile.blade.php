@@ -313,8 +313,12 @@
                                         <table class="table">
                                             <thead>
                                             <tr>
-                                                <th>Default</th>
-                                                <th>Credit Card</th>
+                                                <div class="row">
+                                                    <div class="col-xs-6"><th>Default</th></div>
+                                                    <div class="col-xs-6"><th>Credit Card</th></div>
+                                                </div>
+                                                
+                                                
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -372,7 +376,7 @@
                                                 <div class="form-group">
                                                     <label for="billingState">* Street Number</label>
                                                     <input type="text" class="form-control" id="billingStateNr" 
-                                                                        name="streetNumber" placeholder="State">
+                                                                        name="streetNumber" placeholder="Street number">
                                                 </div>
                                             </div>
                                         </div>
@@ -504,6 +508,8 @@
                     </div>
                 </div>
 
+
+
                 <!-- Shipping Information -->
                 <div class="tab-pane fade" id="tab-4">
                     <div class="panel-group">
@@ -511,36 +517,56 @@
                             <div class="panel-body"
                                  style="background-color: #ededed; margin-top: 20px;">
 
-                                <div class="row">
-                                    <div class="col-xs-6">
+                                <div class="col-xs-6">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item active"><a>List of Shipping Addresses</a></li>
+                                            <li class="breadcrumb-item listOfShippingAddressesDiv">
+                                                <button type="button" class="btn btn-link listOfShippingAddresses">List of Shipping Addresses </button>
+                                            </li>
                                         </ol>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-6 addUpdateShippingAddressDiv">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item active"><a>Add(Update)Shipping Address</a></li>
+                                            <li class="breadcrumb-item active ">
+                                                <button type="button" class="btn btn-link addUpdateShippingAddress">Add(Update)Shipping Address</button>
+                                            </li>
                                         </ol>
                                     </div>
-                                </div>
+                                <div>
 
                                 <div>
-                                    <form action="" method="post">
+                                    <form action="" method="post" class="listOfShippingAddressesForm">
                                         <table class="table">
                                             <thead>
                                             <tr>
                                                 <th>Default</th>
                                                 <th>Shipping Address</th>
-                                                <th>Operations</th>
+                                    
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
                                                 <td><input type="radio"
-                                                           name="defaultShippingAddressId"/><span>default</span></td>
-                                                <td></td>
-                                                <td><a><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;<a><i
-                                                                class="fa fa-times"></i></a></td>
+                                                           name="defaultShippingAddressId"/></td>
+                                                <td class="shippingAddress">
+                                                    <strong>Country:   </strong><span class="country"></span><br/>
+                                                    <strong>City:   </strong><span class="city"></span><br/>
+                                                    <strong>Street:   </strong><span class="street"></span><br/>
+                                                    <strong>Street number:   </strong><span class="streetNumber"></span><br/>
+                                                    <strong>Zipcode:   </strong><span class="zipcode"></span><br/>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="radio"
+                                                           name="defaultShippingAddressId"/></td>
+                                                <td class="shippingAddress">
+                                                    <strong>Country:   </strong><span class="country"></span><br/>
+                                                    <strong>City:   </strong><span class="city"></span><br/>
+                                                    <strong>Street:   </strong><span class="street"></span><br/>
+                                                    <strong>Street number:   </strong><span class="streetNumber"></span><br/>
+                                                    <strong>Zipcode:   </strong><span class="zipcode"></span><br/>
+
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -549,33 +575,33 @@
                                 </div>
 
                                 <div>
-                                    <form action="" method="post">
+                                    <form action="" method="" class="addUpdateShippingAddressForm">
 
-                                        <input hidden="hidden" name="id"/>
 
                                         <!-- Shipping Address -->
                                     
                                         <div class="form-group">
                                             <h4>Shipping Address</h4>
+                                            <hr/>
                                     
                                         <div class="form-group">
-                                            <label for="billingName">* Name</label> 
-                                            <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name"                         name="shippingName"  required="required"/>
+                                            <label for="shippingName">* Name</label> 
+                                            <input type="text" class="form-control" id="shippingName" placeholder="Receiver Name"  name="shippingName"  required="required"/>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingCity">* Street Address</label> 
-                                                    <input type="text" class="form-control" id="billingStreet"
-                                                                        name="street" placeholder="Billing street address"/>
+                                                    <label for="shippingStreet">* Street Address</label> 
+                                                    <input type="text" class="form-control" id="shippingStreet"
+                                                                        name="street" placeholder="Shipping street address"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingState">* Street Number</label>
-                                                    <input type="text" class="form-control" id="billingStateNr" 
-                                                                        name="streetNumber" placeholder="State">
+                                                    <label for="ShippingStreetNr">* Street Number</label>
+                                                    <input type="text" class="form-control" id="ShippingStreetNr" 
+                                                                        name="streetNumber" placeholder="Street number">
                                                 </div>
                                             </div>
                                         </div>
@@ -583,16 +609,16 @@
                                         <div class="row">
                                         <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingState">* City</label>
-                                                    <input type="text" class="form-control" id="billingCity" 
+                                                    <label for="shippingCity">* City</label>
+                                                    <input type="text" class="form-control" id="shippingCity" 
                                                                         name="city" placeholder="City">
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingCity">* County</label> 
-                                                    <input type="text" class="form-control" id="billingCountry"
-                                                                        name="county" placeholder="Billing county"/>
+                                                    <label for="shippingCountry">* County</label> 
+                                                    <input type="text" class="form-control" id="shippingCountry"
+                                                                        name="county" placeholder="Shipping county"/>
                                                 </div>
                                             </div>                                            
                                         </div>
@@ -601,14 +627,14 @@
                                         <div class="row">
                                             <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingCity">* Country</label> 
-                                                    <input type="text" class="form-control" id="billingCounty"
-                                                                        name="country" placeholder="Billing country"/>
+                                                    <label for="shippingCountry">* Country</label> 
+                                                    <input type="text" class="form-control" id="shippingCountry"
+                                                                        name="country" placeholder="Shipping country"/>
                                                 </div>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="form-group">
-                                                    <label for="billingState">* Zipcode</label>
+                                                    <label for="billingZipcode">* Zipcode</label>
                                                     <input type="text" class="form-control" id="billingZipcode" 
                                                                         name="zipcode" placeholder="Zipcode">
                                                 </div>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use App\BillingAddress;
 use App\Payment;
+use App\ShippingAddress;
 
 class MyProfileController extends Controller
 {
@@ -134,8 +135,7 @@ class MyProfileController extends Controller
 
         $user = User::where('username', $username )->first();
 
-        $var = print_r($paymentId);
-        $user->default_payment_id = $var;
+        $user->default_payment_id = $paymentId->id;
 
        $user->save();      
    }
@@ -157,7 +157,15 @@ class MyProfileController extends Controller
         $expiryYear = $request['expiryYear'];
         $cvc = $request['cvc'];
 
-        $billing = BillingAddress::where('name', $billingName)->first();
+        $billing = BillingAddress::where('name', $billingName)
+                                ->where('street','=', $street)
+                                ->where('street_number','=', $streetNumber)
+                                ->where('city','=', $city)
+                                ->where('country','=',$country)
+                                ->where('county','=',$county)
+                                ->where('zipcode','=',$zipcode)
+                                ->first();
+
         $user = User::where('username', $username)->first();
 
         if(sizeof($billing) == 0){
@@ -174,8 +182,15 @@ class MyProfileController extends Controller
         $billing->user_id = $user->id;
 
         $billing->save();
+        $savedBilling = BillingAddress::where('name', $billingName)
+                                ->where('street','=', $street)
+                                ->where('street_number','=', $streetNumber)
+                                ->where('city','=', $city)
+                                ->where('country','=',$country)
+                                ->where('county','=',$county)
+                                ->where('zipcode','=',$zipcode)
+                                ->first();
 
-        $savedBilling = BillingAddress::where('name', $billingName)->first();
         $payment = Payment::where('card_number',$cardNumber)->first();
 
         if(sizeof($payment) == 0){
@@ -190,9 +205,69 @@ class MyProfileController extends Controller
         $payment->user_id = $user->id;
         $payment->billing_address_id = $savedBilling->id;
 
-        $payment->save();  
-
-        echo "Credit card was succesfully added/updated!";  
+        $payment->save();   
    }
+
+   public function listOfShippingAddresses($username){
+        $shippingAddresses = DB::table('shipping_address')
+                                ->join('users', 'shipping_address.user_id', '=', 'users.id')
+                                ->select('shipping_address.country', 'shipping_address.city','shipping_address.street', 'shipping_address.street_number', 'shipping_address.zipcode')
+                                ->where('users.username','=', $username)
+                                ->get();
+
+        return Response::json(['shippingAddresses' => $shippingAddresses]);
+   } 
+
+   public function setDefaultShippingAddress($username, Request $request){
+        $shippingAddress = ShippingAddress::where('street_number', $request->json('streetNumber'))->first();
+        $user = User::where('username', $username);
+
+        $user->default_shipping_address_id = $user->id;
+
+        $user->save();
+   }  
+
+   public function addUpdateShippingAddress($username, Request $request)
+   {
+        $shippingName = $request['shippingName'];
+        $street = $request['street'];
+        $streetNumber = $request['streetNumber'];
+        $city = $request['city'];
+        $county = $request['county'];
+        $country = $request['country'];
+        $zipcode = $request['zipcode'];
+
+
+        $shippingAddress = ShippingAddress::where('name', $shippingName)
+                                ->where('street','=', $street)
+                                ->where('street_number','=', $streetNumber)
+                                ->where('city','=', $city)
+                                ->where('country','=',$country)
+                                ->where('county','=',$county)
+                                ->where('zipcode','=',$zipcode)
+                                ->first();
+
+        $user = User::where('username', $username)->first();
+
+        if(sizeof($shippingAddress)==0){
+            $shippingAddress = new ShippingAddress;
+            $shippingAddress->name = $shippingName;
+        }
+        $shippingAddress->street = $street;
+        $shippingAddress->street_number = $streetNumber;
+        $shippingAddress->city = $city;
+        $shippingAddress->county = $county;
+        $shippingAddress->country = $country;
+        $shippingAddress->zipcode = $zipcode;
+        $shippingAddress->user_id = $user->id;
+
+        $shippingAddress->save();
+   } 
+
+
+   public function testGetDbFacade(){
+       
+   }
+
 
 }

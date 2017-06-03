@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->text('password');
             $table->string('phone');
             $table->smallInteger('default_payment_id')->nullable(true);
+            $table->smallInteger('default_shipping_address_id')->nullable(true);
             $table->string('remember_token');
         });
 
