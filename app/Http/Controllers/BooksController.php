@@ -19,14 +19,12 @@ class BooksController extends Controller
    		$json = array('iTotalRecords' => sizeof($books),
    					'iTotalDisplayRecords' => sizeof($books),
    					'sEcho' => 10,
-   					'aaData' => array('title')
+   					'aaData' => $books
 
    					);
 
    		return $json;
-
     }
-
 
 
     public function allDeProbaBooks(){
@@ -38,7 +36,9 @@ class BooksController extends Controller
    					array('name' => 'Sitepoint', 'url' => 'https//sitepoint.com', 'editor' => array('name' =>'John','phone' =>'123456'))));
 
    		return $data;
+    }
 
-
+    public function bookDetails(){
+    	return view('templates.bookDetail');
     }
 }

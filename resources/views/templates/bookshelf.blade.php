@@ -29,9 +29,6 @@
         </div>
 
         <div class="col-xs-9">
-            <div>
-                <h5 style="font-style: italic;">Oops, no result is found. Try something else or try again later.</h5>
-            </div>
 
             <table border="0" id="bookList">
                 <thead>
@@ -41,28 +38,7 @@
                 </thead>
                 <tbody>
                 <tr class="book-item" >
-                    <td>
-                        <div ">
-                            <div class="row" style="margin-bottom: 50px;">
-                                <div class="col-xs-3">
-                                    <a href=""><img class="img-responsive shelf-book" src="" /></a>
-                                </div>
-                                <div class="col-xs-9" >
-                                    <a href=""><h4 text=""></h4></a><span text="">Publication Date</span>
-                                    <p text="whats up">Author</p>
-                                    <a href=""><span text="">Book format</span></a> 
-                                        <span text=""><span> pages</span></span><br/>
-
-                                    <a href=""><span style="font-size: x-large; color: #db3208;">$<span                text="">Our price</span></span></a>
-
-                                    <span style="text-decoration: line-through;">$<span
-                                                text=""></span>List price</span>
-
-                                    <p utext=""></p>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
+                    <td> </td>
                 </tr>
                 </tbody>
             </table>
@@ -75,20 +51,43 @@
 @include('common.footer-scripts')
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function() {     
+
         $('#bookList').DataTable({
             "lengthMenu":[[5,10,15,20,-1],[5,10,15,20,"All"]],
             "ordering":false,
              stateSave:true,
             "bServerSide": true,
-             "sAjaxSource": "http://localhost:8090/Bookstore/laravel/public/allBooks"
-            // "aoColumns": [{
-            //     'mData' : 'books',
-            //     // 'mRender' : function(data){
-            //     //     return data.[0];
-            //     // },
-            //     "sTitle": "Site name"
-            //}]
+            "sAjaxSource": "http://localhost:8090/Bookstore/laravel/public/allBooks",
+            "aoColumns": [{
+                'mData' : 'title',
+                "sClass" : 'left',
+                'mRender' : function(data, type, full){
+                    return '  <div> ' +
+                                '  <div class="row" style="margin-bottom: 50px;"> ' +
+                                    ' <div class="col-xs-4"> ' +
+                                      ' <a href="/Bookstore/laravel/public/bookDetails/' +full.id+ '"><img class="img-responsive shelf-book" src="image/BookImages/' + full.title.replace(/\s+/g, '') + '.png" onerror="this.src=\'image/BookImages/unexisting2.png\'"/></a> ' +
+                                    ' </div> ' +
+                                   ' <div class="col-xs-7"> ' +
+                                        ' <a href="/Bookstore/laravel/public/bookDetails"><h4 text="">' + full.title + '</h4></a> ' +
+                                        ' <p "><u>' +full.in_stock_number + '  in stock</u></p> '+
+                                        ' <p style = "margin:0">' + full.author + ' </p> ' +
+                                        ' <p style = "margin:0>' + full.format + '  format </p> ' +
+                                        ' <p style = "margin:0>' + full.number_of_pages + ' pages</p> ' +
+                                        ' <a href="/Bookstore/laravel/public/bookDetails"><span style="font-size: x-large; color: #db3208;">$<span text=""> ' + full.our_price + ' </span></span></a> ' +
+                                        ' <span style="text-decoration: line-through;">$<span text=""></span>' +full.list_price + '</span> '+
+                                    ' </div> ' +
+                                    ' <div class col-xs-1> ' +
+                                        ' <a href="" class="btn btn-info" role="button">Add to shopping cart</a>'
+
+                                    ' </div>' +
+                                ' </div>' +
+
+
+                            ' </div> ' ;
+                },
+               "sTitle": "Site name"
+           }]
 
 
         });
@@ -100,5 +99,8 @@
         });
     });
 </script>
+
+
+
 </body>
 </html>

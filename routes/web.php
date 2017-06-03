@@ -52,18 +52,15 @@ Route::post('/addUpdateShippingAddress/{timi}', ['as' => 'addUpdateShippingAddre
 
 Route::get('/books', ['as' => 'bookshelf', 'uses' => 'BooksController@goToBrowseTheBookshelf']);
 Route::get('/allBooks',['as' => 'allBooks', 'uses' => 'BooksController@allBooks']);
+Route::get('/bookDetails/{id}', ['as' => 'bookDetails', 'uses' => 'BooksController@bookDetails']);
 
-Route::get('/deProbaBooks', ['as' => 'deProbaBooks', 'uses' => 'BooksController@allDeProbaBooks']);
-
-
-
+Route::post('/bookDetails', ['as' => 'bookDetails2', 'uses' => 'BooksController@bookDetails']);
 
 
 
 
-Route::get('/allBooksHtml', function(){
-	return view ('templates.allBooks');
-});
+
+
 
 
 

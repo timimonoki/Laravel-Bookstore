@@ -62,7 +62,7 @@ session_start();
             </div>
         </div>
         <div class="col-xs-4">
-            <img src="image/logo2.png" class="img-responsive" />
+            <img src="image/logo2.png" class="img-responsive" style="width: 150%" />
         </div>
     </div>
 
