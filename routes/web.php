@@ -30,10 +30,6 @@ Route::get('/shopping-cart', function (){
     return view('templates.shoppingCart');
 })->name('shoppingCart');
 
-Route::get('/checkout', function (){
-    return view('templates.checkout');
-})->name('checkout');
-
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/my-profile', ['as' => 'myProfile', 'uses' => 'MyProfileController@goToMyProfile']);
@@ -53,8 +49,17 @@ Route::post('/addUpdateShippingAddress/{timi}', ['as' => 'addUpdateShippingAddre
 Route::get('/books', ['as' => 'bookshelf', 'uses' => 'BooksController@goToBrowseTheBookshelf']);
 Route::get('/allBooks',['as' => 'allBooks', 'uses' => 'BooksController@allBooks']);
 Route::get('/bookDetails/{id}', ['as' => 'bookDetails', 'uses' => 'BooksController@bookDetails']);
+Route::post('/addToShoppingCart/{username}',['as' => 'addToShoppingCart' , 'uses' =>'BooksController@addToShoppingCart']);
+Route::get('/bookInStockNumber/{id}', ['uses' => 'BooksController@bookInStockNumber']);
 
-Route::post('/bookDetails', ['as' => 'bookDetails2', 'uses' => 'BooksController@bookDetails']);
+Route::get('/checkout', ['as' => 'checkout', 'uses' => 'BooksController@checkout']);
+Route::get('/allShoppingCartItems/{username}', ['uses' => 'ShoppingCartController@allShoppingCartItems']);
+
+Route::post('/deleteShoppingCartItem/{username}', ['uses' => 'ShoppingCartController@deleteShoppingCartItem']);
+Route::post('/checkout/{username}',['uses' => 'ShoppingCartController@checkout']);
+
+
+
 
 
 

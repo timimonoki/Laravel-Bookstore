@@ -20,7 +20,7 @@ class CreateBooksTable extends Migration
             $table->string('category')->nullable(false);
             $table->text('description');
             $table->string('format');
-            $table->integer('in_stock_number')->nullable(false);
+            $table->unsignedInteger('in_stock_number')->nullable(false);
             $table->string('language');
             $table->double('list_price', 15, 8)->nullable(false);
             $table->integer('number_of_pages');
@@ -54,7 +54,7 @@ class CreateBooksTable extends Migration
                 'id' => 2,
                 'title' => '50 Shades of black',
                 'author' => 'Selena Sarns',
-                'category' => 'Atrs $ Literature',
+                'category' => 'Arts $ Literature',
                 'description' => 'Love',
                 'format' => 'text',
                 'in_stock_number' => 35,

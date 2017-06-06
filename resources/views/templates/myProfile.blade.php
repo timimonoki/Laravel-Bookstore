@@ -7,8 +7,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/userDefined/scripts.js"></script>
 <script src="js/userDefined/myProfile.js"></script>
-<script src="js/scripts.js"></script>
 @include('common.navbar')
 
 <div class="container">
@@ -47,25 +47,6 @@
                                             <strong>Wrong username! </strong> Please enter the correct username
                                         </div>
                                 @endif
-
-                                    {{--<script>--}}
-                                        {{--$(function () {--}}
-                                            {{--$("#updateUserInfoButton").click(function()  {--}}
-
-                                                {{--$.ajax({--}}
-                                                    {{--type: 'POST',--}}
-                                                    {{--url: '/edit-myProfile',--}}
-                                                    {{--data: $("#editMyProfileForm").serializeArray(),--}}
-                                                    {{--success: function () {--}}
-                                                        {{--alert('form was submitted');--}}
-                                                    {{--}--}}
-                                                {{--});--}}
-
-                                              {{--event.preventDefault();// using this page stop being refreshing--}}
-
-                                            {{--});--}}
-                                        {{--});--}}
-                                    {{--</script>--}}
 
                                 <!-- Send a form with details about profile to be updated -->
 

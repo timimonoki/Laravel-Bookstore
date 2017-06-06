@@ -19,7 +19,7 @@ class CreateCartItemTable extends Migration
             $table->double('subtotal');
             $table->unsignedInteger('book_id');
             $table->unsignedInteger('shopping_cart_id');
-            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('order_id')->nullable(true);
             $table->foreign('book_id')->references('id')->on('books');
             $table->foreign('shopping_cart_id')->references('id')->on('shopping_carts');
             $table->foreign('order_id')->references('id')->on('orders');

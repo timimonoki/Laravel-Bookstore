@@ -17,6 +17,9 @@ class VerifyCsrfToken extends BaseVerifier
         '/setDefaultCreditCard/timi',
         'addUpdateCreditCard/timi',
         '/addUpdateShippingAddress/timi',
-        'bookDetails/'
+        'bookDetails/',
+        'addToShoppingCart/timi',
+        '/deleteShoppingCartItem/timi',
+        '/checkout/timi'
     ];
 }
