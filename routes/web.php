@@ -10,7 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+
+Route::post('/log-in', ['as' => 'logIn' , 'uses' => 'LoginController@login']);
+Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
+Route::post('/register-in', ['as' => 'registerIn', 'uses' => 'LoginController@register']);
+
 Route::get('/', function () {
     return view('templates.index');
 })->name('index');

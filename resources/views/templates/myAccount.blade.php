@@ -36,31 +36,21 @@
                             <div class="panel-body"	style="background-color: #ededed; margin-top: 20px;">
 
 
-                                <form method="POST" action="{{ route('register') }}">
-                                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <form method="POST" action="{{ route('registerIn') }}">
+                                    <div class="form-group">
                                         <label for="newUsername">* Username: </label>&nbsp;
-                                        <input required="required" type="text" class="form-control" value="{{ old('name') }}"
+                                        <input required="required" type="text" class="form-control"
                                                 id="newUsername" name="username" />
 
-                                        @if ($errors->has('name'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                        @endif
 
                                         <p style="color: #828282">Enter your username here.</p>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                        <label for="email">* Email Address: </label> <input
-                                                required="required" type="text" class="form-control" value="{{ old('email') }}"
+                                    <div class="form-group">
+                                        <label for="email">* Email Address: </label> 
+                                        <input required="required" type="text" class="form-control"
                                                 id="email" name="email" />
 
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                        @endif
 
                                         <p style="color: #828282">A valid email address. All
                                             emails from the system withll be sent to this address. The
@@ -69,16 +59,11 @@
                                             certain notification.</p>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="password" >*Password</label>
 
                                             <input id="password" type="password" class="form-control" name="password" required>
 
-                                            @if ($errors->has('password'))
-                                                <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                            @endif
                                     </div>
 
                                     <div class="form-group">
@@ -101,31 +86,20 @@
                         <div class="panel panel-default" style="border: none;">
                             <div class="panel-body"
                                  style="background-color: #ededed; margin-top: 20px;">
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ route('logIn') }}">
 
-                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="username">* Username: </label>
                                         <input required="required" type="text" class="form-control"
-                                                id="username" value="{{ old('email') }}" required autofocus />
+                                                id="username" required autofocus />
 
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                        @endif
 
                                         <p style="color: #828282">Enter your username here.</p>
                                     </div>
 
-                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="password">* Password: </label>
                                         <input required="required" type="password" class="form-control" id="password" name="password" required/>
-
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
-                                        @endif
 
                                         <p style="color: #828282">Enter the password that  accompanies your username</p>
                                     </div>

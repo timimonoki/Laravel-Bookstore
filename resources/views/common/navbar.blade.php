@@ -28,16 +28,11 @@
                 </form>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href=" {{ route('myAccount') }} ">MY ACCOUNT</a></li>
                 <li><a href=" {{ route('myProfile') }}">MY PROFILE</a></li>
                 <li><a href="{{ route('shoppingCart') }}">SHOPPING CART</a></li>
                 <li><a href='{{ route('myAccount') }}'>SIGN IN</a></li>
-                <li>
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">LOGOUT</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
+                <li><a href="{{ route('logout') }}" >LOGOUT</a>
+                  
                 </li>
 
             <!-- <li><a href="myProfile.php">MY PROFILE</a></li> -->

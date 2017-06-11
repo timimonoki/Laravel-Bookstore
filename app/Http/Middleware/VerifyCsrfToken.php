@@ -20,6 +20,10 @@ class VerifyCsrfToken extends BaseVerifier
         'bookDetails/',
         'addToShoppingCart/timi',
         '/deleteShoppingCartItem/timi',
-        '/checkout/timi'
+        '/checkout/timi',
+        '/login',
+        '/register',
+        '/log-in',
+        '/register-in'
     ];
 }
